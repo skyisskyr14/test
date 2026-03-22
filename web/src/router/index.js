@@ -9,6 +9,7 @@ import SelfScoreView from '../views/SelfScoreView.vue'
 import ApprovalView from '../views/ApprovalView.vue'
 import AppealView from '../views/AppealView.vue'
 import ReportView from '../views/ReportView.vue'
+import { canAccess, ROLE } from '../constants/navigation'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -32,8 +33,16 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path !== '/' && !localStorage.getItem('token')) {
+  const token = localStorage.getItem('token')
+  if (to.path !== '/' && !token) {
     return next('/')
+  }
+  if (to.path.startsWith('/dashboard')) {
+    const user = JSON.parse(localStorage.getItem('user') || 'null')
+    const roleId = Number(user?.roleId || ROLE.EMPLOYEE)
+    if (!canAccess(roleId, to.path)) {
+      return next('/dashboard')
+    }
   }
   next()
 })

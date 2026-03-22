@@ -27,3 +27,5 @@ export const processAppealApi = (id, data) => http.put(`/appeals/${id}/process`,
 
 export const deptReportApi = () => http.get('/reports/department')
 export const trendReportApi = () => http.get('/reports/trend')
+
+export const healthApi = () => http.get('/health')
