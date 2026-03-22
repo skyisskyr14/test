@@ -7,13 +7,17 @@
         <version>3.3.5</version>
         <relativePath/>
     </parent>
+
     <groupId>com.perf</groupId>
     <artifactId>performance-system</artifactId>
     <version>1.0.0</version>
     <name>performance-system</name>
+
     <properties>
         <java.version>17</java.version>
+        <mysql.version>8.4.0</mysql.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -31,6 +35,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -39,6 +44,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
