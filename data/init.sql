@@ -61,6 +61,23 @@ CREATE TABLE assessment_indicator (
   update_time DATETIME NULL ON UPDATE CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS plan_indicator;
+CREATE TABLE plan_indicator (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  plan_id BIGINT NOT NULL,
+  indicator_id BIGINT NOT NULL,
+  assigned_weight DECIMAL(5,2) NOT NULL
+);
+
+DROP TABLE IF EXISTS plan_participant;
+CREATE TABLE plan_participant (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  plan_id BIGINT NOT NULL,
+  user_id BIGINT NOT NULL,
+  assessor_id BIGINT,
+  create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 DROP TABLE IF EXISTS assessment_task;
 CREATE TABLE assessment_task (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -70,6 +87,19 @@ CREATE TABLE assessment_task (
   self_evaluate_deadline DATETIME,
   submit_time DATETIME,
   current_processor_id BIGINT,
+  create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time DATETIME NULL ON UPDATE CURRENT_TIMESTAMP
+);
+
+DROP TABLE IF EXISTS score_record;
+CREATE TABLE score_record (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  task_id BIGINT NOT NULL,
+  indicator_id BIGINT NOT NULL,
+  rater_id BIGINT NOT NULL,
+  rater_role TINYINT NOT NULL,
+  score DECIMAL(5,2) NOT NULL,
+  version INT NOT NULL DEFAULT 1,
   create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   update_time DATETIME NULL ON UPDATE CURRENT_TIMESTAMP
 );
@@ -115,17 +145,26 @@ VALUES ('hr_admin','123456','HR管理员',3,2,'hr@demo.com',1),
 INSERT INTO assessment_plan(plan_name,plan_code,description,cycle_type,start_date,end_date,publisher_id,status)
 VALUES ('2026年Q1绩效考核','PLAN-2026-Q1','季度绩效考核方案',2,'2026-01-01','2026-03-31',1,2),
        ('2026年2月月度考核','PLAN-2026-02','月度绩效考核方案',1,'2026-02-01','2026-02-28',1,3),
-       ('2026年Q2绩效考核','PLAN-2026-Q2','季度考核待审批方案',2,'2026-04-01','2026-06-30',1,1);
+       ('2026年Q2绩效考核','PLAN-2026-Q2','季度考核待发布方案',2,'2026-04-01','2026-06-30',1,1);
 
 INSERT INTO assessment_indicator(indicator_name,indicator_type,description,weight,creator_id,is_template)
 VALUES ('项目交付质量',1,'按项目交付质量评分',35,1,1),
        ('团队协作能力',2,'跨部门协作评价',25,1,1),
        ('创新改进贡献',2,'流程优化与创新贡献',40,1,1);
 
+INSERT INTO plan_indicator(plan_id,indicator_id,assigned_weight)
+VALUES (1,1,35),(1,2,25),(1,3,40),(2,1,35),(2,2,25),(2,3,40);
+
+INSERT INTO plan_participant(plan_id,user_id,assessor_id)
+VALUES (1,3,2),(2,3,2),(3,3,2);
+
 INSERT INTO assessment_task(plan_id,user_id,task_status,self_evaluate_deadline,current_processor_id)
 VALUES (1,3,1,'2026-03-20 23:59:59',3),
        (2,3,2,'2026-02-20 23:59:59',1),
        (3,3,1,'2026-06-20 23:59:59',3);
+
+INSERT INTO score_record(task_id,indicator_id,rater_id,rater_role,score)
+VALUES (2,1,3,1,80),(2,2,3,1,78),(2,3,3,1,79);
 
 INSERT INTO assessment_result(task_id,total_score,result_level,approval_status,approver_id,final_comment)
 VALUES (1,88.50,'A',1,2,'表现优秀'),

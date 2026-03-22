@@ -7,6 +7,7 @@
         <el-menu-item index="/dashboard/plans">考核方案</el-menu-item>
         <el-menu-item index="/dashboard/indicators">指标管理</el-menu-item>
         <el-menu-item index="/dashboard/tasks">我的任务</el-menu-item>
+        <el-menu-item index="/dashboard/self-score">自评打分</el-menu-item>
         <el-menu-item index="/dashboard/approvals">结果审批</el-menu-item>
         <el-menu-item index="/dashboard/appeals">申诉处理</el-menu-item>
         <el-menu-item index="/dashboard/reports">数据分析</el-menu-item>

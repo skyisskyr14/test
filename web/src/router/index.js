@@ -5,6 +5,7 @@ import HomeView from '../views/HomeView.vue'
 import PlanView from '../views/PlanView.vue'
 import IndicatorView from '../views/IndicatorView.vue'
 import TaskView from '../views/TaskView.vue'
+import SelfScoreView from '../views/SelfScoreView.vue'
 import ApprovalView from '../views/ApprovalView.vue'
 import AppealView from '../views/AppealView.vue'
 import ReportView from '../views/ReportView.vue'
@@ -21,6 +22,7 @@ const router = createRouter({
         { path: 'plans', component: PlanView },
         { path: 'indicators', component: IndicatorView },
         { path: 'tasks', component: TaskView },
+        { path: 'self-score', component: SelfScoreView },
         { path: 'approvals', component: ApprovalView },
         { path: 'appeals', component: AppealView },
         { path: 'reports', component: ReportView }
