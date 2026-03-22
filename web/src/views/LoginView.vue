@@ -28,11 +28,15 @@ const store = useUserStore()
 const form = reactive({ username: 'hr_admin', password: '123456' })
 
 const login = async () => {
-  const { data } = await loginApi(form)
-  if (!data.success) return ElMessage.error(data.message)
-  store.setLogin(data.data)
-  ElMessage.success('登录成功')
-  router.push('/dashboard')
+  try {
+    const { data } = await loginApi(form)
+    if (!data.success) return ElMessage.error(data.message)
+    store.setLogin(data.data)
+    ElMessage.success('登录成功')
+    router.push('/dashboard')
+  } catch (e) {
+    ElMessage.error('登录失败，请检查后端服务是否启动')
+  }
 }
 </script>
 

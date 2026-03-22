@@ -4,19 +4,22 @@ import com.perf.dto.ApiResponse;
 import com.perf.dto.LoginRequest;
 import com.perf.model.User;
 import com.perf.service.AuthService;
+import com.perf.util.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin
 public class AuthController {
     private final AuthService authService;
+    private final TokenService tokenService;
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, TokenService tokenService) {
         this.authService = authService;
+        this.tokenService = tokenService;
     }
 
     @PostMapping("/login")
@@ -26,7 +29,9 @@ public class AuthController {
             return ApiResponse.fail("用户名或密码错误");
         }
         return ApiResponse.ok(Map.of(
-                "token", "demo-token-" + user.getId(),
+                "token", tokenService.generate(user),
+                "expireInHours", 8,
+                "loginAt", Instant.now().toString(),
                 "user", Map.of(
                         "id", user.getId(),
                         "username", user.getUsername(),

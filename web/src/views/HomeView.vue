@@ -8,6 +8,12 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <el-card style="margin-top: 16px">
+      <template #header>待办中心</template>
+      <el-alert title="请在本周内完成Q2绩效方案审批" type="warning" show-icon :closable="false" />
+      <el-alert title="2条员工申诉等待HR处理" type="info" show-icon :closable="false" style="margin-top:12px" />
+    </el-card>
   </div>
 </template>
 
