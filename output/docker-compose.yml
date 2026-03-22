@@ -14,7 +14,7 @@ services:
     image: maven:3.9.9-eclipse-temurin-17
     container_name: perf-backend
     working_dir: /app
-    command: bash -lc "mvn -q -DskipTests spring-boot:run"
+    command: bash -lc "mvn -U -q -DskipTests spring-boot:run"
     volumes:
       - ../spring:/app
     network_mode: host
