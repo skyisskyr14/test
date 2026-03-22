@@ -9,6 +9,7 @@ import SelfScoreView from '../views/SelfScoreView.vue'
 import ApprovalView from '../views/ApprovalView.vue'
 import AppealView from '../views/AppealView.vue'
 import ReportView from '../views/ReportView.vue'
+import RoadmapView from '../views/RoadmapView.vue'
 import { canAccess, ROLE } from '../constants/navigation'
 
 const router = createRouter({
@@ -26,7 +27,8 @@ const router = createRouter({
         { path: 'self-score', component: SelfScoreView },
         { path: 'approvals', component: ApprovalView },
         { path: 'appeals', component: AppealView },
-        { path: 'reports', component: ReportView }
+        { path: 'reports', component: ReportView },
+        { path: 'roadmap', component: RoadmapView }
       ]
     }
   ]

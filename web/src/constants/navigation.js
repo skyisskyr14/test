@@ -12,7 +12,8 @@ export const ALL_MENUS = [
   { label: '自评打分', path: '/dashboard/self-score', roles: [ROLE.EMPLOYEE] },
   { label: '结果审批', path: '/dashboard/approvals', roles: [ROLE.LEADER] },
   { label: '申诉处理', path: '/dashboard/appeals', roles: [ROLE.EMPLOYEE, ROLE.HR] },
-  { label: '数据分析', path: '/dashboard/reports', roles: [ROLE.HR, ROLE.LEADER] }
+  { label: '数据分析', path: '/dashboard/reports', roles: [ROLE.HR, ROLE.LEADER] },
+  { label: '项目进度', path: '/dashboard/roadmap', roles: [ROLE.EMPLOYEE, ROLE.HR, ROLE.LEADER] }
 ]
 
 export const getMenusByRole = (roleId) => ALL_MENUS.filter((item) => item.roles.includes(roleId))
