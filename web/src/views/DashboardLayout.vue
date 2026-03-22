@@ -1,10 +1,13 @@
 <template>
   <el-container style="height: 100vh">
-    <el-aside width="220px" class="aside">
+    <el-aside width="240px" class="aside">
       <h3>绩效系统</h3>
       <el-menu router :default-active="$route.path">
         <el-menu-item index="/dashboard">主控台</el-menu-item>
         <el-menu-item index="/dashboard/plans">考核方案</el-menu-item>
+        <el-menu-item index="/dashboard/indicators">指标管理</el-menu-item>
+        <el-menu-item index="/dashboard/tasks">我的任务</el-menu-item>
+        <el-menu-item index="/dashboard/approvals">结果审批</el-menu-item>
         <el-menu-item index="/dashboard/appeals">申诉处理</el-menu-item>
         <el-menu-item index="/dashboard/reports">数据分析</el-menu-item>
       </el-menu>
@@ -25,7 +28,6 @@ import { useUserStore } from '../stores/user'
 
 const router = useRouter()
 const store = useUserStore()
-
 const logout = () => {
   store.logout()
   router.push('/')

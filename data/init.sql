@@ -48,6 +48,32 @@ CREATE TABLE assessment_plan (
   update_time DATETIME NULL ON UPDATE CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS assessment_indicator;
+CREATE TABLE assessment_indicator (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  indicator_name VARCHAR(255) NOT NULL,
+  indicator_type TINYINT NOT NULL,
+  description TEXT,
+  weight DECIMAL(5,2) NOT NULL,
+  creator_id BIGINT NOT NULL,
+  is_template TINYINT NOT NULL,
+  create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time DATETIME NULL ON UPDATE CURRENT_TIMESTAMP
+);
+
+DROP TABLE IF EXISTS assessment_task;
+CREATE TABLE assessment_task (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  plan_id BIGINT NOT NULL,
+  user_id BIGINT NOT NULL,
+  task_status TINYINT NOT NULL DEFAULT 1,
+  self_evaluate_deadline DATETIME,
+  submit_time DATETIME,
+  current_processor_id BIGINT,
+  create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time DATETIME NULL ON UPDATE CURRENT_TIMESTAMP
+);
+
 DROP TABLE IF EXISTS assessment_result;
 CREATE TABLE assessment_result (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -91,10 +117,20 @@ VALUES ('2026年Q1绩效考核','PLAN-2026-Q1','季度绩效考核方案',2,'202
        ('2026年2月月度考核','PLAN-2026-02','月度绩效考核方案',1,'2026-02-01','2026-02-28',1,3),
        ('2026年Q2绩效考核','PLAN-2026-Q2','季度考核待审批方案',2,'2026-04-01','2026-06-30',1,1);
 
+INSERT INTO assessment_indicator(indicator_name,indicator_type,description,weight,creator_id,is_template)
+VALUES ('项目交付质量',1,'按项目交付质量评分',35,1,1),
+       ('团队协作能力',2,'跨部门协作评价',25,1,1),
+       ('创新改进贡献',2,'流程优化与创新贡献',40,1,1);
+
+INSERT INTO assessment_task(plan_id,user_id,task_status,self_evaluate_deadline,current_processor_id)
+VALUES (1,3,1,'2026-03-20 23:59:59',3),
+       (2,3,2,'2026-02-20 23:59:59',1),
+       (3,3,1,'2026-06-20 23:59:59',3);
+
 INSERT INTO assessment_result(task_id,total_score,result_level,approval_status,approver_id,final_comment)
-VALUES (1001,88.50,'A',1,2,'表现优秀'),
-       (1002,79.00,'B',1,2,'完成目标良好'),
-       (1003,69.50,'C',0,NULL,'待审批');
+VALUES (1,88.50,'A',1,2,'表现优秀'),
+       (2,79.00,'B',1,2,'完成目标良好'),
+       (3,69.50,'C',0,NULL,'待审批');
 
 INSERT INTO performance_appeal(result_id,appealer_id,appeal_content,appeal_time,appeal_status,processor_id,process_comment)
 VALUES (1,3,'希望复核创新项目加分项','2026-03-10 10:20:00',1,1,'处理中'),
