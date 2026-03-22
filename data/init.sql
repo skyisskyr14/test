@@ -120,6 +120,22 @@ CREATE TABLE assessment_result (
 );
 
 DROP TABLE IF EXISTS performance_appeal;
+
+DROP TABLE IF EXISTS operation_log;
+CREATE TABLE operation_log (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  user_id BIGINT NOT NULL,
+  operation VARCHAR(255) NOT NULL,
+  module VARCHAR(100),
+  request_url VARCHAR(500),
+  request_method VARCHAR(10),
+  request_params TEXT,
+  ip_address VARCHAR(50),
+  status TINYINT NOT NULL,
+  error_message TEXT,
+  operate_time DATETIME NOT NULL
+);
+
 CREATE TABLE performance_appeal (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   result_id BIGINT NOT NULL,
@@ -174,3 +190,7 @@ VALUES (1,88.50,'A',1,2,'表现优秀'),
 INSERT INTO performance_appeal(result_id,appealer_id,appeal_content,appeal_time,appeal_status,processor_id,process_comment)
 VALUES (1,3,'希望复核创新项目加分项','2026-03-10 10:20:00',1,1,'处理中'),
        (2,3,'请求查看评分细则','2026-03-15 09:00:00',0,NULL,NULL);
+
+
+INSERT INTO operation_log(user_id,operation,module,request_url,request_method,request_params,ip_address,status,error_message,operate_time)
+VALUES (1,'系统初始化','system','/api/system/init','POST',NULL,'127.0.0.1',1,NULL,now());

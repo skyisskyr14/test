@@ -29,3 +29,5 @@ export const deptReportApi = () => http.get('/reports/department')
 export const trendReportApi = () => http.get('/reports/trend')
 
 export const healthApi = () => http.get('/health')
+
+export const systemLogsApi = () => http.get('/system/logs')

@@ -10,6 +10,7 @@ import ApprovalView from '../views/ApprovalView.vue'
 import AppealView from '../views/AppealView.vue'
 import ReportView from '../views/ReportView.vue'
 import RoadmapView from '../views/RoadmapView.vue'
+import OperationLogView from '../views/OperationLogView.vue'
 import { canAccess, ROLE } from '../constants/navigation'
 
 const router = createRouter({
@@ -28,7 +29,8 @@ const router = createRouter({
         { path: 'approvals', component: ApprovalView },
         { path: 'appeals', component: AppealView },
         { path: 'reports', component: ReportView },
-        { path: 'roadmap', component: RoadmapView }
+        { path: 'roadmap', component: RoadmapView },
+        { path: 'system-logs', component: OperationLogView }
       ]
     }
   ]
